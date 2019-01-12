@@ -8,7 +8,7 @@
 
 ## Basic Usages
 First of all, you need to add a `video` and `canvas` element into the `body` element.
-The id of the `canvas` have to be **"qr-canvas"**; this is a requirement of **[jsqrcode](https://github.com/LazarSoft/jsqrcode)**.
+The id of the `canvas` has to be **"qr-canvas"**; this is a requirement of **[jsqrcode](https://github.com/LazarSoft/jsqrcode)**.
 
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
@@ -48,7 +48,7 @@ getScreenId(function (error, sourceId, screen_constraints) {
 NOTE: You have to install an extension except Firefox. Please check the detail on their [website](https://github.com/muaz-khan/getScreenId).
 
 ## Demo
-You can try demo applications on the this [link](https://www.ht.sfc.keio.ac.jp/~tetujin/SenbayKit-Browser/).
+You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetujin/SenbayKit-Browser/).
 
 ## Instruction
 1. Download SenbayKit-Browser library
