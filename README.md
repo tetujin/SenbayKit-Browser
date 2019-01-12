@@ -1,22 +1,21 @@
 # SenbayKit-Browser
-**SenbayKit-Browser** is a library for decoding embedded sensor data from SenbayVideo on web browsers.
+**SenbayKit-Browser** is a library for decoding embedded sensor data from SenbayVideo on your web browser.
+
 
 <p align="center">
   <img src="video/demo.gif", width="640">
 </p>
 
 ## Basic Usages
-You can decode embedded sensor data from a video on your browser by the following code.
-
-First of all, you need to add a video and canvas element into the body element.
-The id of the canvas have to be "qr-canvas". This is a requirement of **[jsqrcode](https://github.com/LazarSoft/jsqrcode)**.
+First of all, you need to add a `video` and `canvas` element into the `body` element.
+The id of the `canvas` have to be **"qr-canvas"**; this is a requirement of **[jsqrcode](https://github.com/LazarSoft/jsqrcode)**.
 
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
 <canvas id="qr-canvas" hidden></canvas>
 ```
 
-In JavaScript, you just initialize SenbayReader with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QRcode by the `interval` (millisecond), and call the `observer` when a QR code is decoded.
+In JavaScript, you just initialize `SenbayReader` with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QRcode by the `interval` (millisecond). The `observer` is called when a QR code is detected by `SenbayReader`. 
 You can stop the loop by `stop()` method.
 
 ```JavaScript
@@ -28,7 +27,7 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-You can decode a QRcode on any other screens by using screen capture function on web browser. You can easily connect the function using **[getScreenId](https://github.com/muaz-khan/getScreenId)** library.
+You can decode a QRcode on any other screens by using screen capture function. You can easily connect the function using **[getScreenId](https://github.com/muaz-khan/getScreenId)** library.
 Just adding the following code into HTML and JavaScript, you can scan QRcodes on any other screens.
 
 ```html
@@ -53,8 +52,8 @@ You can try demo applications on the this [link](https://www.ht.sfc.keio.ac.jp/~
 
 ## Instruction
 1. Download SenbayKit-Browser library
-2. Move `js` directory into your project.
-3. Import following JavaScript files into the target HTML header or body.
+2. Move `js` directory into your project
+3. Import following JavaScript files
 ```html
 <!-- install 'jsqrcode' ( https://github.com/LazarSoft/jsqrcode )-->
 <script type="text/javascript" src="js/qrcode/grid.js"></script>
@@ -100,7 +99,7 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-6. [Option] Add a screen capture function if you need
+6. [Option] Add the screen capture function
 ```JavaScript
 getScreenId(function (error, sourceId, screen_constraints) {
   navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
