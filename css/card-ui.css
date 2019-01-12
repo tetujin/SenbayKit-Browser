@@ -1,0 +1,25 @@
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 30;
+  padding: 30;
+}
+body {
+  background:#fff;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ui-widget-content {
+  width: 50%;
+  height: auto;
+  padding: 0.5em;
+  background-color:
+  rgba(255,255,255,0.5);
+}
+.ui-widget-raw {height: 50%; height: auto;}
+.ui-widget-video {width: 100%; height:auto;}
+.ui-widget-map {width: 50%; height:200px;}
+.ui-widget-controller {width: 30%; height:auto;}
+#map {width:100%; height: 100%}
+.sws-close-btn:before{color: rgb(255,89,89);}

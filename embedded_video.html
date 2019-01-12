@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <script src="js/jquery/jquery-1.12.4.js"></script>
+  <script src="js/jquery/jquery-ui.js"></script>
+
+  <script type="text/javascript" src="js/qrcode/grid.js"></script>
+  <script type="text/javascript" src="js/qrcode/version.js"></script>
+  <script type="text/javascript" src="js/qrcode/detector.js"></script>
+  <script type="text/javascript" src="js/qrcode/formatinf.js"></script>
+  <script type="text/javascript" src="js/qrcode/errorlevel.js"></script>
+  <script type="text/javascript" src="js/qrcode/bitmat.js"></script>
+  <script type="text/javascript" src="js/qrcode/datablock.js"></script>
+  <script type="text/javascript" src="js/qrcode/bmparser.js"></script>
+  <script type="text/javascript" src="js/qrcode/datamask.js"></script>
+  <script type="text/javascript" src="js/qrcode/rsdecoder.js"></script>
+  <script type="text/javascript" src="js/qrcode/gf256poly.js"></script>
+  <script type="text/javascript" src="js/qrcode/gf256.js"></script>
+  <script type="text/javascript" src="js/qrcode/decoder.js"></script>
+  <script type="text/javascript" src="js/qrcode/qrcode.js"></script>
+  <script type="text/javascript" src="js/qrcode/findpat.js"></script>
+  <script type="text/javascript" src="js/qrcode/alignpat.js"></script>
+  <script type="text/javascript" src="js/qrcode/databr.js"></script>
+
+  <title>SenbayKit-Browser | [DEMO] Embedded Video</title>
+  <link href="css/card-ui.css" rel="stylesheet">
+
+  <script type="text/javascript" src="js/senbay/BaseX.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/senbay/SenbayFormat.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/senbay/SenbayReader.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/chart/Chart.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/senbay/SenbayWidget.js" charset="utf-8"></script>
+
+</head>
+<body>
+  <h1>SenbayKit-Browser</h1>
+  <p>You can decode a embedded SenbayVideo on your browser.</p>
+
+  <h2>Demo</h2>
+  <button type="button" name="button" onclick="start()">start</button>
+  <input type="text" name="" id="interval" value="100">
+
+  <button type="button" name="button" onclick="stop()">stop</button>
+  <div class="container">
+  <div id="set">
+    <!-- Video Widget -->
+    <div class="ui-widget-content ui-widget-video draggable resizable">
+      <video id="mv" width="100%" autoplay controls autobuffer> <!--autoplay-->
+        <source src="video/h264_720p.mp4" >
+        <p>HTML5に対応していません。</p>
+      </video>
+    </div>
+
+
+    <!-- Map Widget -->
+    <div id="map-widget" class="ui-widget-content ui-widget-map draggable resizable">
+      <div id="map"></div>
+    </div>
+
+    <!-- Controller Widget -->
+    <div class="ui-widget-content ui-widget-controller draggable resizable">
+      <h3>Generate a New Chart</h3>
+      <input type="button" name="" value="Refresh Valid Keys" onclick="refreshValidKeys()"><br>
+      Value-1: <select class="" name="" id="value-1"></select><br>
+      Value-2: <select class="" name="" id="value-2"></select><br>
+      Value-3: <select class="" name="" id="value-3"></select><br>
+      Buffer: <input type="text" name="" value="100" id="bufferValue"><br>
+      <button type="button" name="button" onclick="generateChart()">chart</button>
+    </div>
+
+    <!-- Raw Data Widget -->
+    <div class="ui-widget-content ui-widget-raw draggable resizable">
+      <p id="raw"></p>
+    </div>
+
+    <!-- Canvas Widget-->
+    <div class="ui-widget-content draggable resizable" hidden>
+      <canvas id="qr-canvas" hidden></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmdE_8jjp-eD8p6TI1gpmEU-ycT8VERCQ&callback=initMap" async defer></script>
+<script type="text/javascript" src="js/senbay/SenbayViewer.js" charset="utf-8"></script>
+
+<script>
+  var reader = null;
+  $(function() {
+    initAll();
+    // init reader
+    reader = new SenbayReader('mv', debug=false);
+  });
+
+  function start(){
+    var interval = Number(document.getElementById('interval').value);
+    // start reader with an observer
+    reader.start(interval, function(raw){
+      console.log(raw.TIME);
+      updateWidgets(raw);
+    });
+  }
+
+  function stop(){
+    reader.stop();
+  }
+</script>
+
+</body>
+</html>
