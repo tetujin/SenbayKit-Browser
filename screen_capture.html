@@ -112,8 +112,8 @@
 
     function start(){
       var bn = Number(document.getElementById('baseNumber').value);
-      reader = new SenbayReader('mv', baseNumber=bn debug=false);
-      
+      reader = new SenbayReader('mv', baseNumber=bn, debug=false);
+
       var interval = Number(document.getElementById('interval').value);
       // start reader with an observer
       reader.start(interval, function(raw){
