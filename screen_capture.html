@@ -48,7 +48,8 @@
   <button type="button" name="button" onclick="selectScreen()">select screen</button>
 
   <button type="button" name="button" onclick="start()">start</button>
-  <input type="text" name="" id="interval" value="100">
+  <input type="text" name="" id="interval" value="100" placeholder="scan interval (default=100ms)">
+  <input type="text" name="" id="baseNumber" value="122" placeholder="base number (default=122)">
 
   <button type="button" name="button" onclick="stop()">stop</button>
 
@@ -95,7 +96,8 @@
     $(function() {
       initAll();
       // init reader
-      reader = new SenbayReader('mv', debug=false);
+      var bn = Number(document.getElementById('baseNumber').value);
+      reader = new SenbayReader('mv', baseNumber=bn, debug=false);
     });
 
     function selectScreen(){

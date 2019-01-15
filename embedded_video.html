@@ -47,7 +47,7 @@
   <div id="set">
     <!-- Video Widget -->
     <div class="ui-widget-content ui-widget-video draggable resizable">
-      <video id="mv" width="100%" autoplay controls autobuffer> <!--autoplay-->
+      <video id="v" width="100%" autoplay controls autobuffer> <!--autoplay-->
         <source src="video/h264_720p.mp4" >
         <p>HTML5に対応していません。</p>
       </video>
@@ -76,7 +76,7 @@
     </div>
 
     <!-- Canvas Widget-->
-    <div class="ui-widget-content draggable resizable" hidden>
+    <div class="ui-widget-content draggable resizable">
       <canvas id="qr-canvas" hidden></canvas>
     </div>
   </div>
@@ -85,24 +85,29 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmdE_8jjp-eD8p6TI1gpmEU-ycT8VERCQ&callback=initMap" async defer></script>
 <script type="text/javascript" src="js/senbay/SenbayViewer.js" charset="utf-8"></script>
 
+
 <script>
   var reader = null;
   $(function() {
     initAll();
     // init reader
-    reader = new SenbayReader('mv', debug=false);
+    console.log("init");
+    reader = new SenbayReader('v', baseNumber=121, debug=false);
+    start()
   });
 
   function start(){
+    console.log("start");
     var interval = Number(document.getElementById('interval').value);
     // start reader with an observer
     reader.start(interval, function(raw){
-      console.log(raw.TIME);
+      console.log(raw);
       updateWidgets(raw);
     });
   }
 
   function stop(){
+    console.log("stop");
     reader.stop();
   }
 </script>

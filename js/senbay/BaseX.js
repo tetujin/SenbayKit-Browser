@@ -148,7 +148,7 @@ class BaseX{
       var v = Math.pow(shinsu, byteData.length-i-1) * this.asciiRTable[byteData[i]];
       theValue += v;
     }
-
+    
     if(isNegative){
       return theValue * -1;
     }else{
@@ -172,11 +172,7 @@ class BaseX{
     if(doubleValues.length == 1){
       ///// Calculate a Integer Part ////////////
       var integerLong = this.decodeLong(doubleValues[0]);
-      if(isNegative){
-        return integerLong * -1;
-      }else{
-        return integerLong;
-      }
+      return integerLong;
     }else if(doubleValues.length > 1){
       ///// Calculate a Integer Part ////////////
       var integerLong = this.decodeLong(doubleValues[0]);
@@ -200,9 +196,14 @@ class BaseX{
       var decimalLong =  this.decodeLong(decimalStr);
 
       if(isNegative){
-          return Number("-" + integerLong + "." + zeros + decimalLong);
+        if (integerLong < 0) {
+          integerLong = integerLong * -1
+        }
+        var result = Number("-" + integerLong + "." + zeros + decimalLong);
+        return result;
       }else{
-          return Number(integerLong + "." + zeros + decimalLong);
+        var result = Number(integerLong + "." + zeros + decimalLong);
+        return result;
       }
     }else{
       console.log("error");

@@ -1,7 +1,7 @@
 class SenbayReader{
 
-  constructor(videoElementId, debug) {
-      this.senbayFormat   = new SenbayFormat(122);
+  constructor(videoElementId, baseNumber=122, debug=false) {
+      this.senbayFormat   = new SenbayFormat(baseNumber);
       this.videoElementId = videoElementId;
       this.video = document.getElementById(videoElementId);
       this.timerId = null;
@@ -19,7 +19,6 @@ class SenbayReader{
   }
 
   scan(){
-    // console.log("hello");
     // set the canvas mode as 2d
     var canvas = document.getElementById('qr-canvas');
     if(canvas == null){
