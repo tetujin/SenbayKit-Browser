@@ -124,28 +124,3 @@ class SenbayFormat{
     return -1; // there is no version information
   }
 }
-
-// class SenbayData{
-//   constructor(senbayData){
-//     this.senbayData = senbayData;
-//   }
-//
-//   getDoubleData(key){
-//     var data = this.senbayData[key];
-//     if(typeof(data) == "undefined" || data == null){
-//         return 0;
-//     }else{
-//       return parseDouble(data);
-//     }
-//   }
-//
-//   getLongData(key){
-//
-//   }
-// }
-
-
-
-//var dataLine = "V:3,TIME:1234,ACCX:0.1,ACCY:0.03378785976,ACCZ:0.001,YAW:-1,ROLL:-0.1,PITC:-0.01,BRIG:-0.001,WEATHER:'CLEAR'";
-// var dataLine = "V:4,01234,10.1,20.03378785976,30.001,4-1,5-0.1,6-0.01,7-0.001,WEATHER:'CLEAR'";
-// getSenbayData(dataLine);

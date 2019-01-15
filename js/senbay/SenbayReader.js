@@ -1,6 +1,6 @@
 class SenbayReader{
 
-  constructor(videoElementId, baseNumber=122, debug=false) {
+  constructor(videoElementId, baseNumber=121, debug=false) {
       this.senbayFormat   = new SenbayFormat(baseNumber);
       this.videoElementId = videoElementId;
       this.video = document.getElementById(videoElementId);
