@@ -6,23 +6,7 @@
   <script src="js/jquery/jquery-1.12.4.js"></script>
   <script src="js/jquery/jquery-ui.js"></script>
 
-  <script type="text/javascript" src="js/qrcode/grid.js"></script>
-  <script type="text/javascript" src="js/qrcode/version.js"></script>
-  <script type="text/javascript" src="js/qrcode/detector.js"></script>
-  <script type="text/javascript" src="js/qrcode/formatinf.js"></script>
-  <script type="text/javascript" src="js/qrcode/errorlevel.js"></script>
-  <script type="text/javascript" src="js/qrcode/bitmat.js"></script>
-  <script type="text/javascript" src="js/qrcode/datablock.js"></script>
-  <script type="text/javascript" src="js/qrcode/bmparser.js"></script>
-  <script type="text/javascript" src="js/qrcode/datamask.js"></script>
-  <script type="text/javascript" src="js/qrcode/rsdecoder.js"></script>
-  <script type="text/javascript" src="js/qrcode/gf256poly.js"></script>
-  <script type="text/javascript" src="js/qrcode/gf256.js"></script>
-  <script type="text/javascript" src="js/qrcode/decoder.js"></script>
-  <script type="text/javascript" src="js/qrcode/qrcode.js"></script>
-  <script type="text/javascript" src="js/qrcode/findpat.js"></script>
-  <script type="text/javascript" src="js/qrcode/alignpat.js"></script>
-  <script type="text/javascript" src="js/qrcode/databr.js"></script>
+  <script src="js/QR/jsQR.js"></script>
 
   <title>SenbayKit-Browser | [DEMO] Embedded Video</title>
   <link href="css/card-ui.css" rel="stylesheet">
@@ -76,9 +60,10 @@
     </div>
 
     <!-- Canvas Widget-->
-    <div class="ui-widget-content draggable resizable">
+    <!-- <div class="ui-widget-content draggable resizable">
       <canvas id="qr-canvas" hidden></canvas>
-    </div>
+    </div> -->
+
   </div>
 </div>
 
@@ -93,7 +78,6 @@
     // init reader
     console.log("init");
     reader = new SenbayReader('v', debug=false);
-    // start()
   });
 
   function start(){

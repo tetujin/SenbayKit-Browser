@@ -7,15 +7,13 @@
 </p>
 
 ## Basic Usages
-First of all, you need to add a `video` and `canvas` element into the `body` element.
-The id of the `canvas` has to be **"qr-canvas"**; this is a requirement of **[jsqrcode](https://github.com/LazarSoft/jsqrcode)**.
+First of all, you need to add a `video` element into the `body` element.
 
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
-<canvas id="qr-canvas" hidden></canvas>
 ```
 
-In JavaScript, you just initialize `SenbayReader` with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QRcode by the `interval` (millisecond). The `observer` is called when a QR code is detected by `SenbayReader`. 
+In JavaScript, you just initialize `SenbayReader` with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QR code by the `interval` (millisecond). The `observer` is called when a QR code is detected by `SenbayReader`.
 You can stop the loop by `stop()` method.
 
 ```JavaScript
@@ -27,8 +25,8 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-You can decode a QRcode on any other screens by using screen capture function. You can easily connect the function using **[getScreenId](https://github.com/muaz-khan/getScreenId)** library.
-Just adding the following code into HTML and JavaScript, you can scan QRcodes on any other screens.
+You can decode a QR code on any other screens by using screen capture function. You can easily connect the function using **[getScreenId](https://github.com/muaz-khan/getScreenId)** library.
+Just adding the following code into HTML and JavaScript, you can scan QR codes on any other screens.
 
 ```html
 <script src="https://cdn.WebRTC-Experiment.com/getScreenId.js"></script>
@@ -55,24 +53,8 @@ You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetu
 2. Move `js` directory into your project
 3. Import following JavaScript files
 ```html
-<!-- install 'jsqrcode' ( https://github.com/LazarSoft/jsqrcode )-->
-<script type="text/javascript" src="js/qrcode/grid.js"></script>
-<script type="text/javascript" src="js/qrcode/version.js"></script>
-<script type="text/javascript" src="js/qrcode/detector.js"></script>
-<script type="text/javascript" src="js/qrcode/formatinf.js"></script>
-<script type="text/javascript" src="js/qrcode/errorlevel.js"></script>
-<script type="text/javascript" src="js/qrcode/bitmat.js"></script>
-<script type="text/javascript" src="js/qrcode/datablock.js"></script>
-<script type="text/javascript" src="js/qrcode/bmparser.js"></script>
-<script type="text/javascript" src="js/qrcode/datamask.js"></script>
-<script type="text/javascript" src="js/qrcode/rsdecoder.js"></script>
-<script type="text/javascript" src="js/qrcode/gf256poly.js"></script>
-<script type="text/javascript" src="js/qrcode/gf256.js"></script>
-<script type="text/javascript" src="js/qrcode/decoder.js"></script>
-<script type="text/javascript" src="js/qrcode/qrcode.js"></script>
-<script type="text/javascript" src="js/qrcode/findpat.js"></script>
-<script type="text/javascript" src="js/qrcode/alignpat.js"></script>
-<script type="text/javascript" src="js/qrcode/databr.js"></script>
+<!-- install 'jsQR' ( https://github.com/cozmo/jsQR )-->
+  <script src="js/QR/jsQR.js"></script>
 
  <!-- install 'senbay' -->
 <script type="text/javascript" src="js/senbay/BaseX.js" charset="utf-8"></script>
@@ -86,7 +68,6 @@ You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetu
 4. Add required HTML elements
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
-<canvas id="qr-canvas" hidden></canvas>
 ```
 
 5. Initialize `SenbayReader` class and execute methods
@@ -141,4 +122,4 @@ SenbayKit-Browser is available under the Apache License, Version 2.0 license. Se
 * jQuery (MIT)
 * chart (MIT)
 * getScreenId (MIT)
-* jsqrcode (Apache2)
+* jsQR (Apache 2.0)
