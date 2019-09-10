@@ -32,10 +32,12 @@
   <button type="button" name="button" onclick="selectScreen()">select screen</button>
 
   <button type="button" name="button" onclick="start()">start</button>
-  <input type="text" name="" id="interval" value="100" placeholder="scan interval (default=100ms)">
 
   <button type="button" name="button" onclick="stop()">stop</button>
 
+  <br>
+  <p>Interval: <input type="text" name="" id="interval" value="100" placeholder="scan interval (default=100ms)"></p>
+  <p>Base Number:<input type="text" name="" id="baseNumber" value="122" placeholder="Please input 121 or 122. The default value is 122."></p>
   <div class="container">
   <div id="set">
     <!-- Video Widget -->
@@ -94,10 +96,11 @@
     }
 
     function start(){
-      reader = new SenbayReader('mv');
+      let baseNumber = Number(document.getElementById("baseNumber").value)
+      reader = new SenbayReader('mv',baseNumber);
 
-      var interval = Number(document.getElementById('interval').value);
       // start reader with an observer
+      var interval = Number(document.getElementById('interval').value);
       reader.start(interval, function(raw){
         console.log(raw.TIME);
         updateWidgets(raw);

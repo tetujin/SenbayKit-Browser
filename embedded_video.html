@@ -28,6 +28,7 @@
 
   <button type="button" name="button" onclick="stop()">stop</button>
   <div class="container">
+
   <div id="set">
     <!-- Video Widget -->
     <div class="ui-widget-content ui-widget-video draggable resizable">
@@ -77,7 +78,7 @@
     initAll();
     // init reader
     console.log("init");
-    reader = new SenbayReader('v', debug=false);
+    reader = new SenbayReader('v', baseNumber, debug=false);
   });
 
   function start(){
