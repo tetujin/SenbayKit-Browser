@@ -25,25 +25,25 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-You can decode a QR code on any other screens by using screen capture function. You can easily connect the function using **[getScreenId](https://github.com/muaz-khan/getScreenId)** library.
-Just adding the following code into HTML and JavaScript, you can scan QR codes on any other screens.
-
-```html
-<script src="https://cdn.WebRTC-Experiment.com/getScreenId.js"></script>
-```
+You can decode a QR code on any other screens by using screen capture function on your browser (Google Chrome, Safari, and FireFox).
 
 ```JavaScript
-getScreenId(function (error, sourceId, screen_constraints) {
-  navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-  navigator.getUserMedia(screen_constraints, function (stream) {
-      document.querySelector('video').srcObject = stream
-      // console.log(stream);
-  }, function (error) {
-      console.error(error);
-  });
+var preview = document.getElementById('v');
+var screenCapture = new SenbayScreenCapture(preview);
+// You can select a screen from a screen-list.
+screenCapture.start(function(success){
+  if (success) {
+    console.log("Start: Screen Capturing")
+    /** start QR code decode */
+    // var reader = new SenbayReader('v');
+    // reader.start(100, function(json){
+    //   console.log(json);
+    // });
+  }else{
+    console.error("Error: Screen Capturing")
+  }
 });
 ```
-NOTE: You have to install an extension except Firefox. Please check the detail on their [website](https://github.com/muaz-khan/getScreenId).
 
 ## Demo
 You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetujin/SenbayKit-Browser/).
@@ -60,14 +60,14 @@ You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetu
 <script type="text/javascript" src="js/senbay/BaseX.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/senbay/SenbayFormat.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/senbay/SenbayReader.js" charset="utf-8"></script>
-
-<!-- install 'getScreenId' if you use screen capture-->
-<script src="https://cdn.WebRTC-Experiment.com/getScreenId.js"></script>
+<script type="text/javascript" src="js/senbay/SenbayScreenCapture.js" charset="utf-8"></script>
 ```
 
 4. Add required HTML elements
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
+<!-- or just a video element-->
+<video  id="v" width="100%" autoplay controls></video>
 ```
 
 5. Initialize `SenbayReader` class and execute methods
@@ -81,16 +81,23 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-6. [Option] Add the screen capture function
+6. [Option] Use SenbayReader with a screen capturing
 ```JavaScript
-getScreenId(function (error, sourceId, screen_constraints) {
-  navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-  navigator.getUserMedia(screen_constraints, function (stream) {
-      document.querySelector('video').srcObject = stream
-      // console.log(stream);
-  }, function (error) {
-      console.error(error);
-  });
+
+var preview = document.getElementById('v');
+var screenCapture = new SenbayScreenCapture(preview);
+// You can select a screen from a screen-list.
+screenCapture.start(function(success){
+  if (success) {
+    console.log("Start: Screen Capturing")
+    /** start QR code decode */
+    // var reader = new SenbayReader('v');
+    // reader.start(100, function(json){
+    //   console.log(json);
+    // });
+  }else{
+    console.error("Error: Screen Capturing")
+  }
 });
 ```
 
@@ -122,5 +129,4 @@ SenbayKit-Browser is available under the Apache License, Version 2.0 license. Se
 ## Open Source Softwares
 * jQuery (MIT)
 * chart (MIT)
-* getScreenId (MIT)
 * jsQR (Apache 2.0)

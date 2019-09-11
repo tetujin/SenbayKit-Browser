@@ -20,12 +20,114 @@
   <script type="text/javascript" src="js/chart/Chart.min.js" charset="utf-8"></script>
   <script type="text/javascript" src="js/senbay/SenbayWidget.js" charset="utf-8"></script>
   <script type="text/javascript" src="js/senbay/SenbayViewer.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/senbay/SenbayScreenCapture.js" charset="utf-8"></script>
+
+  <style type="text/css">
+    #stream-widget {
+      position:fixed;
+      width: 100%;
+      height: 500px;
+      left: 0;
+      bottom: -550px;
+    }
+    #youtube-frame {
+      /** z-index:0; **/
+      position:fixed;
+      width: 100%;
+      left: 0;
+      top: 0;
+      padding:10px 10px 10px 10px;
+    }
+    #controller-views{
+      z-index:100;
+      position:fixed;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+
+  <script>
+
+    var screenCapture = null;
+    var reader = null;
+    $(function() {
+
+      // init reader
+      initAll();
+
+      // setup an enbedded YouTube Link
+      var youtubeId = getParam('v')
+      var url = 'https://www.youtube.com/embed/'+youtubeId
+      var youtubeFrame = document.getElementById('youtube-frame')
+      youtubeFrame.src = url
+    });
+
+    function selectScreen(){
+      var video = document.getElementById('mv');
+      screenCapture = new SenbayScreenCapture(video);
+      screenCapture.start(function(success){
+        if (success) {
+          console.log("Start Screen Capturing")
+          startQRcodeDecode()
+        }else{
+          console.error("Error: Screen Capturing")
+        }
+      });
+    }
+
+    function startQRcodeDecode(){
+
+      if (reader != null){
+        reader.stop()
+        reader = null
+      }
+      let baseNumber = Number(document.getElementById("baseNumber").value)
+
+      reader = new SenbayReader('mv',baseNumber);
+      var interval = 100
+      // start reader with an observer
+      reader.start(interval, function(json){
+        console.log("decode::",json)
+        // console.log(raw.TIME);
+        updateWidgets(json);
+        document.getElementById("set").hidden = false
+      });
+
+      reader.detectHandler = function(raw){
+        // console.log("detect::",raw)
+      }
+
+      reader.errorHandler = function(e){
+        // console.log("error::",e)
+      }
+    }
+
+    function stopQRcodeDecode(){
+      reader.stop();
+      screenCapture.stop()
+      document.getElementById("set").hidden = true
+    }
+
+    function getParam(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  </script>
 
 </head>
 <body>
   <div id="controller-views">
     <button type="button" name="button" onclick="selectScreen()">start</button>
-    <button type="button" name="button" onclick="stop()">stop</button>
+    <button type="button" name="button" onclick="stopQRcodeDecode()">stop</button>
     <input type="text" name="" id="baseNumber" value="122" placeholder="Please input 121 or 122. The default value is 122.">
   </div>
 
@@ -64,271 +166,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmdE_8jjp-eD8p6TI1gpmEU-ycT8VERCQ&callback=initMap"
     async defer></script>
 
-  <style type="text/css">
-    #stream-widget {
-      position:fixed;
-      width: 100%;
-      height: 500px;
-      left: 0;
-      bottom: -550px;
-    }
-    #youtube-frame {
-      /** z-index:0; **/
-      position:fixed;
-      width: 100%;
-      left: 0;
-      top: 0;
-      padding:10px 10px 10px 10px;
-    }
-    #controller-views{
-      z-index:100;
-      position:fixed;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.2);
-      text-align: center;
-      vertical-align: middle;
-    }
-  </style>
-
-  <script>
-
-    var reader = null;
-    $(function() {
-
-      // init reader
-      initAll();
-
-      // setup an enbedded YouTube Link
-      var youtubeId = getParam('v')
-      var url = 'https://www.youtube.com/embed/'+youtubeId
-      var youtubeFrame = document.getElementById('youtube-frame')
-      youtubeFrame.src = url
-    });
-
-    function selectScreen(){
-
-      startScreenCapture();
-
-      start();
-
-      // getScreenId(function (error, sourceId, screen_constraints) {
-      //   navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-      //   navigator.getUserMedia(screen_constraints, function (stream) {
-      //       document.querySelector('video').srcObject = stream
-      //       // console.log(stream);
-      //   }, function (error) {
-      //       console.error(error);
-      //   });
-      //   // console.log("ready")
-      //   start();
-      // });
-    }
-
-    function start(){
-
-      if (reader != null){
-        reader.stop()
-        reader = null
-      }
-      let baseNumber = Number(document.getElementById("baseNumber").value)
-
-      reader = new SenbayReader('mv',baseNumber);
-      var interval = 100
-      // start reader with an observer
-      reader.start(interval, function(json){
-        console.log("decode::",json)
-        // console.log(raw.TIME);
-        updateWidgets(json);
-        document.getElementById("set").hidden = false
-      });
-
-      reader.detectHandler = function(raw){
-        // console.log("detect::",raw)
-      }
-
-      reader.errorHandler = function(e){
-        // console.log("error::",e)
-      }
-    }
-
-    function stop(){
-      reader.stop();
-      document.getElementById("set").hidden = true
-    }
-
-    function getParam(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-var video            = document.getElementById('mv')
-//document.querySelector('video');
-
-// var button           = document.querySelector('#btn-test-getDisplayMedia');
-// var textarea         = document.querySelector('#capabilities');
-// var settings         = document.querySelector('#settings');
-// var aspectRatio      = document.querySelector('#aspectRatio');
-// var frameRate        = document.querySelector('#frameRate');
-// var resolutions      = document.querySelector('#resolutions');
-// var cursor           = document.querySelector('#cursor');
-// var displaySurface   = document.querySelector('#displaySurface');
-// var logicalSurface   = document.querySelector('#logicalSurface');
-// var videoKind        = document.querySelector('#videoKind');
-
-function startScreenCapture() {
-    // this.disabled = true;
-
-    invokeGetDisplayMedia(function(screen) {
-        addStreamStopListener(screen, function() {
-            location.reload();
-        });
-
-        video.srcObject = screen;
-        console.log(screen);
-
-        var _capabilities = screen.getTracks()[0].getCapabilities();
-        console.log(_capabilities)
-        // capabilities.value = 'capabilities:\n\n' + JSON.stringify(_capabilities, null, '\t');
-        // capabilities.style.display = '';
-
-        var _settings = screen.getTracks()[0].getSettings();
-        console.log(_settings)
-        // settings.value = 'settings:\n\n' + JSON.stringify(_settings, null, '\t');
-        // settings.style.display = '';
-    }, function(e) {
-        // button.disabled = false;
-
-        var error = {
-            name: e.name || 'UnKnown',
-            message: e.message || 'UnKnown',
-            stack: e.stack || 'UnKnown'
-        };
-
-        if(error.name === 'PermissionDeniedError') {
-            if(location.protocol !== 'https:') {
-                error.message = 'Please use HTTPs.';
-                error.stack   = 'HTTPs is required.';
-            }
-        }
-
-        console.error(error.name);
-        console.error(error.message);
-        console.error(error.stack);
-
-        alert('Unable to capture your screen.\n\n' + error.name + '\n\n' + error.message + '\n\n' + error.stack);
-    });
-};
-
-if(!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
-    var error = 'Your browser does NOT supports getDisplayMedia API.';
-    // document.querySelector('h1').innerHTML = error;
-    // document.querySelector('h1').style.color = 'red';
-    //
-    // document.querySelector('video').style.display = 'none';
-    // button.style.display = 'none';
-    throw new Error(error);
-}
-
-function invokeGetDisplayMedia(success, error) {
-    var videoConstraints = {};
-
-    // if(aspectRatio.value !== 'default') {
-    //     videoConstraints.aspectRatio = aspectRatio.value;
-    // }
-    //
-    // if(frameRate.value !== 'default') {
-    //     videoConstraints.frameRate = frameRate.value;
-    // }
-    //
-    // if(cursor.value !== 'default') {
-    //     videoConstraints.cursor = cursor.value;
-    // }
-    //
-    // if(displaySurface.value !== 'default') {
-    //     videoConstraints.displaySurface = displaySurface.value;
-    // }
-    //
-    // if(logicalSurface.value !== 'default') {
-    //     videoConstraints.logicalSurface = true;
-    // }
-    //
-    // if(resolutions.value !== 'default') {
-    //     if (resolutions.value === 'fit-screen') {
-    //         videoConstraints.width = screen.width;
-    //         videoConstraints.height = screen.height;
-    //     }
-    //
-    //     if (resolutions.value === '4K') {
-    //         videoConstraints.width = 3840;
-    //         videoConstraints.height = 2160;
-    //     }
-    //
-    //     if (resolutions.value === '1080p') {
-    //         videoConstraints.width = 1920;
-    //         videoConstraints.height = 1080;
-    //     }
-    //
-    //     if (resolutions.value === '720p') {
-    //         videoConstraints.width = 1280;
-    //         videoConstraints.height = 720;
-    //     }
-    //
-    //     if (resolutions.value === '480p') {
-    //         videoConstraints.width = 853;
-    //         videoConstraints.height = 480;
-    //     }
-    //
-    //     if (resolutions.value === '360p') {
-    //         videoConstraints.width = 640;
-    //         videoConstraints.height = 360;
-    //     }
-    // }
-    if(!Object.keys(videoConstraints).length) {
-        videoConstraints = true;
-    }
-
-    var displayMediaStreamConstraints = {
-        video: videoConstraints
-    };
-
-    if(navigator.mediaDevices.getDisplayMedia) {
-        navigator.mediaDevices.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
-    }
-    else {
-        navigator.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
-    }
-}
-
-function addStreamStopListener(stream, callback) {
-    stream.addEventListener('ended', function() {
-        callback();
-        callback = function() {};
-    }, false);
-    stream.addEventListener('inactive', function() {
-        callback();
-        callback = function() {};
-    }, false);
-    stream.getTracks().forEach(function(track) {
-        track.addEventListener('ended', function() {
-            callback();
-            callback = function() {};
-        }, false);
-        track.addEventListener('inactive', function() {
-            callback();
-            callback = function() {};
-        }, false);
-    });
-}
-// https://w3c.github.io/mediacapture-screen-share/
-// https://www.webrtc-experiment.com/getDisplayMedia/
-  </script>
 
 </body>
 </html>
