@@ -13,8 +13,7 @@ First of all, you need to add a `video` element into the `body` element.
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
 ```
 
-In JavaScript, you just initialize `SenbayReader` with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QR code by the `interval` (millisecond). The `observer` is called when a QR code is detected by `SenbayReader`.
-You can stop the loop by `stop()` method.
+In JavaScript, you just initialize `SenbayReader` with video element's id and call `start(interval,observer)` method. SenbayReader try to decode a QR code by the `interval` (millisecond). The `observer` is called when a QR code is detected by `SenbayReader`. You can stop the decoder by `stop()` method.
 
 ```JavaScript
 var reader = new SenbayReader('v');
@@ -34,7 +33,6 @@ var screenCapture = new SenbayScreenCapture(preview);
 screenCapture.start(function(success){
   if (success) {
     console.log("Start: Screen Capturing")
-    /** start QR code decode */
     // var reader = new SenbayReader('v');
     // reader.start(100, function(json){
     //   console.log(json);
@@ -57,17 +55,17 @@ You can try demo applications on this [link](https://www.ht.sfc.keio.ac.jp/~tetu
 <script src="js/QR/jsQR.js"></script>
 
  <!-- install 'senbay' -->
-<script type="text/javascript" src="js/senbay/BaseX.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/senbay/SenbayFormat.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/senbay/SenbayReader.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/senbay/SenbayScreenCapture.js" charset="utf-8"></script>
+<script src="js/senbay/BaseX.js"></script>
+<script src="js/senbay/SenbayFormat.js"></script>
+<script src="js/senbay/SenbayReader.js"></script>
+<script src="js/senbay/SenbayScreenCapture.js"></script>
 ```
 
 4. Add required HTML elements
 ```html
 <video  id="v" width="100%" src="video.mp4" autoplay controls></video>
 <!-- or just a video element-->
-<video  id="v" width="100%" autoplay controls></video>
+<!-- <video  id="v" width="100%" autoplay controls></video> -->
 ```
 
 5. Initialize `SenbayReader` class and execute methods
@@ -81,7 +79,7 @@ reader.start(interval, function(json){
 // reader.stop();
 ```
 
-6. [Option] Use SenbayReader with a screen capturing
+6. [Option] Use SenbayReader with a screen capture function
 ```JavaScript
 
 var preview = document.getElementById('v');
