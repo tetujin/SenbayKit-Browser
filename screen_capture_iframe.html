@@ -48,6 +48,18 @@
       text-align: center;
       vertical-align: middle;
     }
+    #base {
+      width: 300px;
+      height: 300px;
+      position: relative;
+    }
+    .clock {
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
   </style>
 
   <script>
@@ -92,9 +104,20 @@
       // start reader with an observer
       reader.start(interval, function(json){
         console.log("decode::",json)
-        // console.log(raw.TIME);
+
         updateWidgets(json);
+
         document.getElementById("set").hidden = false
+
+        var timeWidget = document.getElementById('time')
+        var time = new Date(json.TIME * 1000)
+        hour.style.transform = "rotate("+(time.getHours()*30+time.getMinutes()*0.5)+"deg)";
+        minute.style.transform = "rotate("+(time.getMinutes()*6)+"deg)";
+        second.style.transform = "rotate("+(time.getSeconds()*6)+"deg)";
+
+        var allow = document.getElementById('allow')
+        // headWidget.innerHTML = json.HEAD
+        allow.style.transform = "rotate(" + json.HEAD + "deg)";
       });
 
       reader.detectHandler = function(raw){
@@ -154,6 +177,21 @@
     <div class="ui-widget-content ui-widget-raw draggable resizable" >
       <p id="raw"></p>
     </div>
+
+    <div class="ui-widget-content ui-widget-raw draggable resizable">
+      <p id="time"></p>
+      <div id="base">
+        <img src="img/dial.png" class="clock"><!--文字盤-->
+        <img src="img/hour.png" id="hour" class="clock"><!--短針-->
+        <img src="img/minute.png" id="minute" class="clock"><!--長針-->
+        <img src="img/second.png" id="second" class="clock"><!--秒針-->
+      </div>
+    </div>
+
+    <div class="ui-widget-content ui-widget-raw draggable resizable">
+      <img id="allow" src="img/allow.png" alt="">
+    </div>
+
   </div><!-- End demo -->
 
 
