@@ -84,17 +84,12 @@ function refreshValidKeys(){
   }
 }
 
-function generateChart(){
-  var bufferValue = Number(document.getElementById("bufferValue").value);
-  var senbayWidget = new SenbayWidget("id_"+widgetId, 0, bufferValue);
-  senbayWidget.addWidget("set");
-  var xValue = document.getElementById("value-1").value;
-  var yValue = document.getElementById("value-2").value;
-  var zValue = document.getElementById("value-3").value;
-  // console.log(xValue + " . "+ yValue + " . " + zValue);
-  if(xValue != "") senbayWidget.addKey(xValue);
-  if(yValue != "") senbayWidget.addKey(yValue);
-  if(zValue != "") senbayWidget.addKey(zValue);
+function generateChart(keys=[],buffer=100,target="set"){
+  var senbayWidget = new SenbayWidget("id_"+widgetId, 0, buffer);
+  senbayWidget.addWidget(target);
+  for (var index in keys) {
+    senbayWidget.addKey(keys[index]);
+  }
   widgetId++;
   senbayWidgets.push(senbayWidget);
 }

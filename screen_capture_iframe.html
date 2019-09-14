@@ -38,6 +38,11 @@
       top: 0;
       padding:10px 10px 10px 10px;
     }
+    #set{
+      position:relative;
+      width: 100%;
+      top: 500px;
+    }
     #controller-views{
       z-index:100;
       position:fixed;
@@ -48,7 +53,7 @@
       text-align: center;
       vertical-align: middle;
     }
-    #base {
+    #clock-base {
       width: 100px;
       height: 100px;
       position: relative;
@@ -60,12 +65,21 @@
       top: 0px;
       left: 0px;
     }
+    .clock-widget {
+      width: 120px;
+      height: 120px;
+    }
+    .arrow-widget {
+      width: 100px;
+      height: 100px;
+    }
   </style>
 
   <script>
 
     var screenCapture = null;
     var reader = null;
+    var isFirstFrame = false
     $(function() {
 
       // init reader
@@ -76,6 +90,15 @@
       var url = 'https://www.youtube.com/embed/'+youtubeId
       var youtubeFrame = document.getElementById('youtube-frame')
       youtubeFrame.src = url
+
+      document.getElementById('generate-chart-btn').onclick = function(){
+        var x = document.getElementById("value-1").value;
+        var y = document.getElementById("value-2").value;
+        var z = document.getElementById("value-3").value;
+        var buffer = Number(document.getElementById("bufferValue").value);
+        console.log([x,y,z],buffer,"set")
+        generateChart([x,y,z],buffer,"set")
+      }
     });
 
     function selectScreen(){
@@ -84,6 +107,7 @@
       screenCapture.start(function(success){
         if (success) {
           console.log("Start Screen Capturing")
+          isFirstFrame = true;
           startQRcodeDecode()
         }else{
           console.error("Error: Screen Capturing")
@@ -109,15 +133,26 @@
 
         document.getElementById("set").hidden = false
 
+        // analog clock
         var timeWidget = document.getElementById('time')
         var time = new Date(json.TIME * 1000)
         hour.style.transform = "rotate("+(time.getHours()*30+time.getMinutes()*0.5)+"deg)";
         minute.style.transform = "rotate("+(time.getMinutes()*6)+"deg)";
         second.style.transform = "rotate("+(time.getSeconds()*6)+"deg)";
 
-        var allow = document.getElementById('allow')
-        // headWidget.innerHTML = json.HEAD
-        allow.style.transform = "rotate(" + json.HEAD + "deg)";
+        // arrow
+        var arrow = document.getElementById('arrow')
+        arrow.style.transform = "rotate(" + json.HEAD + "deg)";
+
+        if (isFirstFrame) {
+          isFirstFrame = false;
+          var buffer = Number(document.getElementById("bufferValue").value);
+          if (json.ACCX) generateChart(['ACCX','ACCY','ACCZ'],buffer,"set")
+          if (json.PITC) generateChart(['PITC','YAW','ROLL'],buffer,"set")
+          if (json.SPEE) generateChart(['SPEE'],buffer,"set")
+          if (json.AIRP) generateChart(['AIRP'],buffer,"set")
+          if (json.ALTI) generateChart(['ALTI'],buffer,"set")
+        }
       });
 
       reader.detectHandler = function(raw){
@@ -125,7 +160,7 @@
       }
 
       reader.errorHandler = function(e){
-        // console.log("error::",e)
+        console.log("error::",e)
       }
     }
 
@@ -161,7 +196,19 @@
     <div id="map-widget" class="ui-widget-content ui-widget-map draggable resizable">
       <div id="map"></div>
     </div>
+    <div class="ui-widget-content ui-widget-raw draggable resizable clock-widget">
+      <p id="time"></p>
+      <div id="clock-base">
+        <img src="img/dial.png" class="clock"><!--文字盤-->
+        <img src="img/hour.png"   id="hour" class="clock"><!--短針-->
+        <img src="img/minute.png" id="minute" class="clock"><!--長針-->
+        <img src="img/second.png" id="second" class="clock"><!--秒針-->
+      </div>
+    </div>
 
+    <div class="ui-widget-content ui-widget-raw draggable resizable arrow-widget">
+      <img id="arrow" src="img/arrow.png" alt="">
+    </div>
     <!-- Controller Widget -->
     <div class="ui-widget-content ui-widget-controller draggable resizable">
       <h3>Generate a New Chart</h3>
@@ -170,7 +217,7 @@
       Value-2: <select class="" name="" id="value-2"></select><br>
       Value-3: <select class="" name="" id="value-3"></select><br>
       Buffer: <input type="text" name="" value="100" id="bufferValue"><br>
-      <button type="button" name="button" onclick="generateChart()">chart</button>
+      <button type="button" name="button" id="generate-chart-btn">chart</button>
     </div>
 
     <!-- Raw Data Widget -->
@@ -178,19 +225,6 @@
       <p id="raw"></p>
     </div>
 
-    <div class="ui-widget-content ui-widget-raw draggable resizable">
-      <p id="time"></p>
-      <div id="base">
-        <img src="img/dial.png" class="clock"><!--文字盤-->
-        <img src="img/hour.png"   id="hour" class="clock"><!--短針-->
-        <img src="img/minute.png" id="minute" class="clock"><!--長針-->
-        <img src="img/second.png" id="second" class="clock"><!--秒針-->
-      </div>
-    </div>
-
-    <div class="ui-widget-content ui-widget-raw draggable resizable">
-      <img id="allow" src="img/allow.png" alt="">
-    </div>
 
   </div><!-- End demo -->
 
