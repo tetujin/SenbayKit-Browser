@@ -43,16 +43,12 @@ class SenbayFormat{
       obj = this.convertSenbayFormatToDictionary(dataLine,true);
     }else if(version == "3"){
       obj = this.convertSenbayFormatToDictionary(dataLine,false);
-    //// Compressed SenbayFormat
     }else if(version == "4"){ // compressed data
       obj = this.convertSenbayFormatToDictionary(dataLine,true);
-    //// Unsupported SenbayFormat
     }else{
       console.log("This format is not supported on SenbayFormat for JavaScript.");
     }
-    // console.log(obj);
-    // var senbayData = new SenbayData(obj);
-    return obj;// senbayData;
+    return obj;
   }
 
   /**

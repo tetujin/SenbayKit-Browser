@@ -10,6 +10,22 @@ body {
   background:#fff;
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+.container {
+  width: 100%;
+  /*max-width: 864px;*/
+  padding: 0 24px;
+  margin: 96px auto;
+}
+/* #controller-views{
+  z-index:100;
+  position:fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  vertical-align: middle;
+} */
 .ui-widget-content {
   width: 50%;
   height: auto;
@@ -17,9 +33,10 @@ body {
   background-color:
   rgba(255,255,255,0.5);
 }
-.ui-widget-raw {height: 50%; height: auto;}
+
+/* .ui-widget-raw {height: 50%; height: auto;}
 .ui-widget-video {width: 100%; height:auto;}
 .ui-widget-map {width: 50%; height:200px;}
 .ui-widget-controller {width: 30%; height:auto;}
 #map {width:100%; height: 100%}
-.sws-close-btn:before{color: rgb(255,89,89);}
+.sws-close-btn:before{color: rgb(255,89,89);} */

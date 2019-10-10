@@ -2,17 +2,90 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/senbay/BaseX.js" charset="utf-8"></script>
   <script type="text/javascript" src="js/senbay/SenbayFormat.js" charset="utf-8"></script>
+  <style media="screen">
+    .container{
+      padding-top: 100px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  </style>
   <title>SenbayKit-Browser | Demo </title>
 </head>
 <body>
-  <h1>SenbayKit-Browser | Demo</h1>
-  <h2>Demo 1: Screen Capture with Selected YouTube</h2>
-  <a href="./screen_capture_iframe.html?v=6FVfoiVKTUQ">Read a SenbayVideo</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="center">
+          <img class="center-block" src="img/senbay-icon.png" alt="">
+          <h2 class="text-center">Welcome to <i><b>Senbay</b></i> World!</h2>
+          <br>
+          <br>
+          <p class="text-center">For playing a YouTube Video with synchronized sensor-data, please input a YouTube URL into a form, and push "Go" button.</p>
+          <form class="text-center" action="screen_capture_iframe.html" method="get">
+            <input type="text" class="form-control text-center" placeholder="Please input a URL here."  name="url" value="https://www.youtube.com/watch?v=6FVfoiVKTUQ" id="url">
+            <br>
+            <!-- https://youtu.be/6FVfoiVKTUQ -->
+            <input class="btn btn-primary" type="button" value="Go" id="go">
+          </form>
+          <script type="text/javascript">
+            window.onload = function(){
+               document.getElementById('go').addEventListener('click', function() {
+                 var url = document.getElementById('url').value
+                 var youtube_url = url.split('watch?v=');
+                 if (youtube_url.length == 1) {
+                   console.log("Error");
+                   var youtube_url = url.split("youtu.be/");
+                   if (youtube_url.length == 1) {
+                     alert('[URL Format Error] Please check the URL for a YouTube video again. The URL has to include the YouTube ID.');
+                     return;
+                   }
+                 }
+                 window.location.href = 'screen_capture_iframe.html?v='+youtube_url[1];
+              });
+            }
+          </script>
+          <br>
+          <br>
 
-  <h2>Demo 2: Embedded Video</h2>
-  <a href="./embedded_video.html">Read an Embedded SenbayVideo</a>
-  
+          <!--
+          <p>Please cite these papers in your publications if it helps your research.</p>
+            <pre>
+@inproceedings{Nishiyama:2018:SPI:3236112.3236154,
+    author = {Nishiyama, Yuuki and Dey, Anind K. and Ferreira, Denzil and Yonezawa, Takuro and Nakazawa,  Jin},
+    title = {Senbay: A Platform for Instantly Capturing, Integrating, and Restreaming of Synchronized Multiple Sensor-data Stream},
+    booktitle = {Proceedings of the 20th International Conference on Human-Computer Interaction with Mobile Devices and Services Adjunct},
+    series = {MobileHCI '18},
+    year = {2018},
+    location = {Barcelona, Spain},
+    publisher = {ACM},
+}
+          </pre>
+        -->
+
+          <p class="text-center">Get more details about <a href="http://www.senbay.info/"><i>Senbay</i></a></p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Footer -->
+    <footer class="page-footer font-small blue">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2019 Copyright
+        <a href="http://www.yuukinishiyama.com">Yuuki Nishiyama</a> All Rights Reserved.
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </div>
 </body>
 </html>
