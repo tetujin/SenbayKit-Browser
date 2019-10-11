@@ -93,9 +93,21 @@
       height: 120px;
     }
     .arrow-widget {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
     }
+    .arrow-background {
+      width: 110px;
+      height: 110px;
+    }
+    .arrow-direction{
+      /* width: 100px; */
+      height: 120px;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+
   </style>
 
   <script>
@@ -176,6 +188,8 @@
         minute.style.transform = "rotate("+(time.getMinutes()*6)+"deg)";
         second.style.transform = "rotate("+(time.getSeconds()*6)+"deg)";
 
+        document.getElementById("timestamp").innerHTML = time
+
         // arrow
         var arrow = document.getElementById('arrow')
         arrow.style.transform = "rotate(" + json.HEAD + "deg)";
@@ -234,6 +248,11 @@
     <div id="map-widget" class="ui-widget-content ui-widget-map draggable resizable">
       <div id="map"></div>
     </div>
+
+    <div class="ui-widget-content ui-widget-raw draggable resizable">
+      <p id="timestamp"></p>
+    </div>
+
     <div class="ui-widget-content ui-widget-raw draggable resizable clock-widget">
       <p id="time"></p>
       <div id="clock-base">
@@ -245,7 +264,8 @@
     </div>
 
     <div class="ui-widget-content ui-widget-raw draggable resizable arrow-widget">
-      <img id="arrow" src="img/arrow.png" alt="">
+      <img class="arrow-background" src="img/compass.png" alt="">
+      <img class="arrow-direction"  id="arrow" src="img/arrow.png" alt="">
     </div>
     <!-- Controller Widget -->
     <div class="ui-widget-content ui-widget-controller draggable resizable">
