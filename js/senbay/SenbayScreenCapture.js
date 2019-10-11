@@ -5,7 +5,7 @@
 */
 
 class SenbayScreenCapture{
-  //
+
   // static CURSOR = {
   //   DEFAULT : 'default',
   //   ALWAYS  : 'always',
@@ -20,7 +20,7 @@ class SenbayScreenCapture{
   //   APPLICATION : 'application',
   //   BROWSER : 'browser'
   // };
-  //
+
 
   constructor(video, constraints={}) {
     this.video = video;

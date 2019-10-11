@@ -30,7 +30,7 @@
           <h2 class="text-center">Welcome to <i><b>Senbay</b></i> World!</h2>
           <br>
           <br>
-          <p class="text-center">For playing a YouTube Video with synchronized sensor-data, please input a YouTube URL into a form, and push "Go" button.</p>
+          <p class="text-center" id="message">For playing a YouTube Video with synchronized sensor-data, please input a YouTube URL into a form, and push "Go" button.</p>
           <form class="text-center" action="screen_capture_iframe.html" method="get">
             <input type="text" class="form-control text-center" placeholder="Please input a URL here."  name="url" value="https://www.youtube.com/watch?v=6FVfoiVKTUQ" id="url">
             <br>
@@ -52,6 +52,43 @@
                  }
                  window.location.href = 'screen_capture_iframe.html?v='+youtube_url[1];
               });
+
+              // Browser check
+
+              var userAgent = window.navigator.userAgent.toLowerCase();
+
+              var isSupportedOS = false;
+              if(userAgent.indexOf('iphone') > 0 || userAgent.indexOf('ipod') > 0 || userAgent.indexOf('android') > 0 && userAgent.indexOf('mobile') > 0){
+                  console.log('Smartphone');
+              }else if(userAgent.indexOf('ipad') > 0 || userAgent.indexOf('android') > 0){
+                  console.log('Tablet');
+              }else{
+                  isSupportedOS = true;
+                  console.log('PC or another devices');
+              }
+
+              var isSupportedBrowser = false;
+              if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1) {
+                  console.log('Internet Explorer');
+              } else if(userAgent.indexOf('edge') != -1) {
+                  console.log('Edge');
+              } else if(userAgent.indexOf('chrome') != -1) {
+                  console.log('Google Chrome');
+                  isSupportedBrowser  = true;
+              } else if(userAgent.indexOf('safari') != -1) {
+                  console.log('Safari');
+              } else if(userAgent.indexOf('firefox') != -1) {
+                  console.log('FireFox');
+              } else {
+                  console.log('Unknown Browser');
+              }
+
+              if (!isSupportedOS || !isSupportedBrowser ) {
+                alert("ERROR: Senbay does not support your web browser now. Please open this URL again using **Google Chrome** on your **PC**");
+                document.getElementById('go').classList.add('hidden');
+                document.getElementById('url').classList.add('hidden');
+                document.getElementById('message').innerHTML = "ERROR: <b><i>Senbay</i></b> does not support your web browser now. Please open this URL again using <b>Google Chrome</b> on your <b>PC</b>.<br><br>残念ながらSenbayは現在ご利用中のウェブブラウザをサポートしていません。お手数をおかけしますが、PC版のGoogle Chromeを使って本URLにアクセスしてください。";
+              }
             }
           </script>
           <br>
