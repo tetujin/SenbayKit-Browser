@@ -5,21 +5,22 @@
 */
 
 class SenbayScreenCapture{
-
-  static CURSOR = {
-    DEFAULT : 'default',
-    ALWAYS  : 'always',
-    NEVER   : 'never',
-    MOTION  : 'motion'
-  };
-
-  static DISPLAY_SURFACE = {
-    DEFAULT : 'default',
-    MONITOR : 'monitor',
-    WINDOW  : 'window',
-    APPLICATION : 'application',
-    BROWSER : 'browser'
-  };
+  //
+  // static CURSOR = {
+  //   DEFAULT : 'default',
+  //   ALWAYS  : 'always',
+  //   NEVER   : 'never',
+  //   MOTION  : 'motion'
+  // };
+  //
+  // static DISPLAY_SURFACE = {
+  //   DEFAULT : 'default',
+  //   MONITOR : 'monitor',
+  //   WINDOW  : 'window',
+  //   APPLICATION : 'application',
+  //   BROWSER : 'browser'
+  // };
+  //
 
   constructor(video, constraints={}) {
     this.video = video;
