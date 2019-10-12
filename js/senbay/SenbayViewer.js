@@ -26,7 +26,8 @@ function initAll(){
 
 ///// Google Map //////////////
 function initMap() {
-  // alert("hello");
+  console.log("called initMap()")
+  console.log("initMap():start")
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.387, lng: 139.425},
     scrollwheel: true,
@@ -36,6 +37,9 @@ function initMap() {
     position : {lat: 35.387, lng: 139.425},
     map:map
   });
+  console.log(map);
+  console.log(marker);
+  console.log("initMap():end")
 }
 
 // Hundling mouser over events for hidding window controllers

@@ -107,6 +107,14 @@
       top: 0px;
       left: 0px;
     }
+    #map{
+      width: 100%;
+      height: 100%;
+    }
+    #map-widget{
+      width: 500px;
+      height: 300px;
+    }
 
   </style>
 
@@ -243,11 +251,16 @@
 
   <iframe id="youtube-frame" width="100%" height="500" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
 
-  <div class="container" id="set" hidden>
+  <!-- <div class="container" id="set" hidden> -->
+  <div class="container" id="set">
     <!-- Map Widget -->
     <div id="map-widget" class="ui-widget-content ui-widget-map draggable resizable">
       <div id="map"></div>
     </div>
+    <!-- JavaScript -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmdE_8jjp-eD8p6TI1gpmEU-ycT8VERCQ&callback=initMap"
+      async defer></script>
+
 
     <div class="ui-widget-content ui-widget-raw draggable resizable">
       <p id="timestamp"></p>
@@ -292,9 +305,6 @@
     <video id="mv" controls autoplay width="100%"></video>
   </div>
 
-  <!-- JavaScript -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmdE_8jjp-eD8p6TI1gpmEU-ycT8VERCQ&callback=initMap"
-    async defer></script>
 
 </body>
 </html>
